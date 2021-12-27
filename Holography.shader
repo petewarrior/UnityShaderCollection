@@ -1,4 +1,6 @@
-// source https://forum.unity.com/threads/change-surface-color-based-on-the-angle-between-surface-normal-and-world-up.355215/
+// A simple shader to change material color according to viewing angle
+//
+// Reference: https://forum.unity.com/threads/change-surface-color-based-on-the-angle-between-surface-normal-and-world-up.355215/
 
 Shader "Custom/Holography"
 {
@@ -12,7 +14,7 @@ Shader "Custom/Holography"
         Tags{ "Queue"="AlphaTest" "RenderType"="TransparentCutout" }
         // AlphaToMask On
         CGPROGRAM
-        #pragma surface surf Lambert alphatest:_Cutoff// vertex:vert
+        #pragma surface surf Lambert alphatest:_Cutoff
         struct Input {
             float2 uv_MainTex;
             float3 customColor;
@@ -22,9 +24,6 @@ Shader "Custom/Holography"
         float3 _ColorA;
         float3 _ColorB;
 
-        // void vert(inout appdata_full v, out Input o) {
-        //     UNITY_INITIALIZE_OUTPUT(Input, o);
-        // }
         sampler2D _MainTex;
         void surf(Input IN, inout SurfaceOutput o) {
             float x = dot(IN.viewDir, o.Normal);
